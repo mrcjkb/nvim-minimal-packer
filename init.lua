@@ -1,5 +1,5 @@
 -- Minimal nvim config with packer
--- Assumes an empty directory '/tmp/nvim-minimal'
+-- Assumes a directory in $NVIM_DATA_MINIMAL
 -- Start with nvim -u <path-to-this-config>
 -- Then exit out of neovim and start again.
 
@@ -15,18 +15,23 @@ local pack_path = data_path .. '/site'
 vim.opt.packpath:remove(pack_path)
 
 -- append temporary config and pack dir
-local test_dir = '/tmp/nvim-minimal'
+local test_dir = os.getenv('NVIM_DATA_MINIMAL')
+if not data_path then
+  error('$NVIM_DATA_MINIMAL environment variable not set!')
+end
 vim.opt.runtimepath:append(test_dir)
 vim.opt.packpath:append(test_dir)
 
 -- bootstrap packer
-local install_path = test_dir .. '/pack/packer/start/packer.nvim'
+local packer_install_path = test_dir .. '/pack/packer/start/packer.nvim'
 local install_plugins = false
 
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.cmd('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
+if vim.fn.empty(vim.fn.glob(packer_install_path)) > 0 then
+  vim.cmd('!git clone git@github.com/wbthomason/packer.nvim ' .. packer_install_path)
   vim.cmd('packadd packer.nvim')
   install_plugins = true
+else
+  vim.cmd('packadd packer.nvim')
 end
 
 local packer = require('packer') 
