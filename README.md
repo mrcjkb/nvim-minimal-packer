@@ -12,5 +12,3 @@ NVIM_DATA_MINIMAL=$(mktemp -d) nvim -u <path-to-imit-lua>
 NVIM_DATA_MINIMAL=(mktemp -d) nvim -u <path-to-imit-lua>
 ```
 This will bootstrap a packer installation into the temp directory.
-
-* Then exit out of Neovim and start again with `nvim -u <path-to-init-lua>`
