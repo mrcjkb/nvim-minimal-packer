@@ -45,6 +45,18 @@ packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use {
+    'marko-cerovac/material.nvim',
+    branch = 'main',
+    setup = function()
+      vim.g.material_style = 'darker'
+      vim.g.material_terminal_italics = 1
+    end,
+    config = function()
+      require('material').setup {}
+    end,
+  }
+
+  use {
     'nvim-treesitter/nvim-treesitter',
     requires = { 
       'nvim-treesitter/playground'
